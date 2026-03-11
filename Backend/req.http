@@ -1,0 +1,34 @@
+### CREATE USER
+POST http://localhost:5000/user-api/user
+Content-Type: application/json
+
+{
+  "name": "Samraksh",
+  "email": "sam@gmail.com",
+  "age": 20,
+  "dateOfBirth": "2003-05-12",
+  "mobileNumber": 9999999999
+}
+
+
+### READ ALL USERS
+GET http://localhost:5000/user-api/user
+
+
+### READ USER BY ID
+GET http://localhost:5000/user-api/users/69a690f22fc21837c5a68919
+
+
+### UPDATE USER BY ID
+PUT http://localhost:5000/user-api/users/69a690f22fc21837c5a68919
+Content-Type: application/json
+
+{
+  "mobileNumber": 8888888888
+}
+### delete user by id
+DELETE http://localhost:5000/user-api/users/69a690f22fc21837c5a68919
+
+
+### Activate USER 
+PATCH http://localhost:5000/user-api/users/69a690f22fc21837c5a68919

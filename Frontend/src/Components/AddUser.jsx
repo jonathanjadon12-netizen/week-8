@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 function AddUser() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
@@ -17,10 +19,59 @@ function AddUser() {
   };
 
   // handle submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // you can replace with API call
-    alert("Form Submitted ✅");
+
+    // Calculate age from Date of Birth
+    const calculateAge = (dobString) => {
+      if (!dobString) return 0;
+      const today = new Date();
+      const birthDate = new Date(dobString);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    };
+
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      age: calculateAge(formData.dob),
+      dateOfBirth: formData.dob,
+      mobileNumber: Number(formData.mobile),
+      status: true
+    };
+
+    try {
+      const res = await fetch("http://localhost:5000/user-api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        alert("User Added Successfully ✅");
+        // Reset form
+        setFormData({
+          name: "",
+          dob: "",
+          email: "",
+          mobile: ""
+        });
+        // Redirect to user list
+        navigate("/users");
+      } else {
+        const errData = await res.json();
+        alert(`Failed to add user: ${errData.message || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error("Error adding user:", error);
+      alert("Error connecting to server. Please try again.");
+    }
   };
 
   return (

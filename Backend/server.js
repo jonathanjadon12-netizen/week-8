@@ -6,6 +6,7 @@ import cors from "cors"
 config();
 const app = exp();
 
+app.use(cors());
 app.use(exp.json());
 
 // user routes

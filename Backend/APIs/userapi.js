@@ -4,7 +4,7 @@ import { UserModel } from "../Models/UserModel.js";
 const userAPI = exp.Router();
 
 // CREATE USER
-userAPI.post("/user", async (req, res) => {
+userAPI.post(["/user", "/users"], async (req, res) => {
   let newUser = req.body;
   let newUserDoc = new UserModel(newUser);
   await newUserDoc.save();
@@ -12,7 +12,7 @@ userAPI.post("/user", async (req, res) => {
 });
 
 // READ ALL USERS
-userAPI.get("/user", async (req, res) => {
+userAPI.get(["/user", "/users"], async (req, res) => {
   let userList = await UserModel.find();
   res.status(200).json({ message: "users", payload: userList });
 });
@@ -53,7 +53,7 @@ userAPI.patch("/users/:id",async (req,res)=>{
    let uid = req.params.id;
   let modifiedUser = req.body;
 
-  let User = await UserModel.findByIdAndUpdate(
+  let user = await UserModel.findByIdAndUpdate(
     uid,
     { $set: modifiedUser },
     { new: true }

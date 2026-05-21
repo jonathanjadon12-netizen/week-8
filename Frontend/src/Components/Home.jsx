@@ -15,7 +15,8 @@ function Home() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        const res = await fetch("http://localhost:5000/user-api/users", {
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+        const res = await fetch(`${API_URL}/user-api/users`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

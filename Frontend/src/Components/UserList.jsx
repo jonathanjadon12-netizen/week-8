@@ -25,7 +25,8 @@ function UserList() {
   async function getUsers() {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/user-api/users", {
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const res = await fetch(`${API_URL}/user-api/users`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +109,8 @@ function UserList() {
     };
 
     try {
-      const res = await fetch(`http://localhost:5000/user-api/users/${editingUser._id}`, {
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const res = await fetch(`${API_URL}/user-api/users/${editingUser._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -133,7 +135,8 @@ function UserList() {
   // Handle Delete Confirmation
   const handleDeleteConfirm = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/user-api/users/${deletingUser._id}`, {
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const res = await fetch(`${API_URL}/user-api/users/${deletingUser._id}`, {
         method: "DELETE"
       });
 

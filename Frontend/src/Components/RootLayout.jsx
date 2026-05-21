@@ -17,7 +17,6 @@ function RootLayout() {
           </div>
           <span className="flex items-center">
             User Management
-            <span className="text-indigo-400 font-medium text-lg ml-1">Hub</span>
           </span>
         </NavLink>
 
